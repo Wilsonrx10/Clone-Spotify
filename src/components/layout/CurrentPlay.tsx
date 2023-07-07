@@ -1,6 +1,35 @@
-import { Laptop2, LayoutList, Mic2, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume } from "lucide-react";
+import {useEffect } from 'react';
+import { Laptop2, LayoutList, Mic2, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume } from "lucide-react";
+import UseCurrentPlay from '../../services/PlayMusic/CurrentPlay';
 
 const CurrentPlay = () => {
+  
+   const {audioPlaying,isPlaying,setCurrentTime,handleAudioEnd,
+    setIsPlaying,PauseMusic,PlayMusic,formatTime,progressWidth,
+    currentTime,duration
+  } = UseCurrentPlay();
+
+  useEffect(() => {
+    if (audioPlaying) {
+      const updateTime = setInterval(() => {
+        if (audioPlaying.ended) {
+          clearInterval(updateTime);
+          setIsPlaying(false);
+          return;
+        }
+        setCurrentTime(audioPlaying.currentTime);
+      }, 500);
+
+      audioPlaying.addEventListener('ended', handleAudioEnd);
+
+      return () => {
+        clearInterval(updateTime)
+        audioPlaying.removeEventListener('ended', handleAudioEnd);
+      }
+    }
+  }, [audioPlaying]);
+
+
   return (
     <>
 
@@ -17,17 +46,24 @@ const CurrentPlay = () => {
            <Shuffle/>
            <SkipBack/>
            <button>
-              <Play/>
+            {
+              isPlaying ? (
+                <Pause onClick={()=> PauseMusic()}/>
+              ): (
+                <Play onClick={()=> PlayMusic()} />
+              )
+            }
+              
            </button>
            <SkipForward/>
            <Repeat/>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-400">0:10</span>
-            <div className="h-1 rounded-full w-96 bg-zinc-600">
-              <div className="bg-zinc-200 h-1 w-40 rounded-full"></div>
-            </div>
-          <span className="text-xs text-zinc-400">3:10</span>
+          <span className="text-xs text-zinc-400">{formatTime(currentTime)}</span>
+          <div className="h-1 rounded-full w-96 bg-zinc-600">
+            <div className="bg-zinc-200 h-1 w-0 rounded-full" style={{ width: `${progressWidth}%` }}></div>
+          </div>
+          <span className="text-xs text-zinc-400">{formatTime(duration)}</span>
         </div>
       </div>
 
