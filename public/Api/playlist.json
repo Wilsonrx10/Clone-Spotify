@@ -1,0 +1,76 @@
+{
+  "random": [
+    {
+      "id": 1,
+      "img": "album-01.jpg",
+      "title": "Michael Jackson",
+      "audio": "teste.mp3"
+    },
+    {
+      "id": 2,
+      "img": "album-03.jpg",
+      "title": "Michael Jackson",
+      "audio": "teste.mp3"
+    },
+    {
+      "id": 3,
+      "img": "album-03.jpg",
+      "title": "Michael Jackson",
+      "audio": "teste1.mp3"
+    },
+    {
+      "id": 4,
+      "img": "album-02.jpg",
+      "title": "XXTENTACION",
+      "audio": "teste2.mp3"
+    },
+    {
+      "id": 5,
+      "img": "album-02.jpg",
+      "title": "XXTENTACION",
+      "audio": "teste2.mp3"
+    },
+    {
+      "id": 6,
+      "img": "album-02.jpg",
+      "title": "XXTENTACION",
+      "audio": "teste2.mp3"
+    }
+  ],
+
+  "MadeForMe": [
+    {
+      "id": 1,
+      "img": "album-01.jpg",
+      "title": "Michael Jackson"
+    },
+
+    {
+      "id": 2,
+      "img": "album-02.jpg",
+      "title": "XXTENTACION"
+    },
+    {
+      "id": 3,
+      "img": "album-01.jpg",
+      "title": "Michael Jackson"
+    },
+
+    {
+      "id": 4,
+      "img": "album-02.jpg",
+      "title": "XXTENTACION"
+    },
+    {
+      "id": 5,
+      "img": "album-01.jpg",
+      "title": "Michael Jackson"
+    },
+
+    {
+      "id": 6,
+      "img": "album-02.jpg",
+      "title": "XXTENTACION"
+    }
+  ]
+}

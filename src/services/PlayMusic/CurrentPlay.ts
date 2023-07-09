@@ -1,12 +1,16 @@
 import { useState } from "react";
 
-const UseCurrentPlay = () => {
+const UseCurrentPlay = (props: String) => {
+
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [audioPlaying, setAudioPlaying] = useState<HTMLAudioElement | null>(
     null
   );
+  
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
+  
+
   const handleAudioEnd = () => {
     setIsPlaying(false);
   };
@@ -15,7 +19,7 @@ const UseCurrentPlay = () => {
     if (audioPlaying) {
       audioPlaying.play();
     } else {
-      const audio = new Audio("midia/audio/teste.mp3");
+      const audio = new Audio("midia/audio/"+props);
       setAudioPlaying(audio);
 
       audio.addEventListener("loadedmetadata", () => {

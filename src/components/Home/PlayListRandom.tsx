@@ -1,35 +1,40 @@
+import axios from "axios"
 import { Play } from "lucide-react"
+import {useContext, useEffect, useState} from 'react'
+import {CurrentPlayContext} from '../../contexts/CurrentPlayContext'
 
 const PlayListRandom= () => {
-    const playlist = [
-        {
-            img: 'album-01.jpg',
-            title: 'Michael Jackson'
-        },
-        {
-            img: 'album-02.jpg',
-            title: 'XXTENTACION SAD'
-        },
-        {
-            img: 'album-03.jpg',
-            title: 'Michael Jackson'
-        },
-        {
-            img: 'album-01.jpg',
-            title: 'Michael Jackson'
-        },
-        {
-            img: 'album-02.jpg',
-            title: 'XXTENTACION SAD'
-        },
-        {
-            img: 'album-03.jpg',
-            title: 'Michael Jackson'
-        }
-    ]
+
+    interface Musica {
+        img: string;
+        title: string;
+        audio: String
+    }
+
+    const [playlist,setPlaylist] = useState<Musica[]>([]);
+
+    const {PlayCurrentMusic} = useContext(CurrentPlayContext);
+
+    useEffect(()=>{
+        getPlayListRandom();
+    },[])
+
+
+    const getPlayListRandom = async () => {
+        await axios.get('Api/playlist.json').then((response)=>{
+            setPlaylist(response.data.random)
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
+
+    const PlayMusic = (item: Musica) => {
+        PlayCurrentMusic(item)
+    }
+
     return (
         <div className='grid grid-cols-3 gap-3 mt-4'>
-            {
+            { 
                 playlist.map((item, idx) => (
                     <a
                         href="#"
@@ -47,7 +52,7 @@ const PlayListRandom= () => {
                             invisible group-hover:visible
                             "
                         >
-                            <Play size={15} fill="bg-black" />
+                            <Play onClick={() => PlayMusic(item)} size={15} fill="bg-black" />
                         </button>
                     </a>
                 ))

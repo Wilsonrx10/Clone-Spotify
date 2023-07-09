@@ -1,30 +1,25 @@
+import { useEffect, useState } from "react";
+import axios from "axios"
+
 const MadeForMe = () => {
-    const playlist = [
-        {
-            img: 'album-01.jpg',
-            title: 'Michael Jackson'
-        },
-        {
-            img: 'album-02.jpg',
-            title: 'XXTENTACION SAD'
-        },
-        {
-            img: 'album-03.jpg',
-            title: 'Michael Jackson'
-        },
-        {
-            img: 'album-01.jpg',
-            title: 'Michael Jackson'
-        },
-        {
-            img: 'album-02.jpg',
-            title: 'XXTENTACION SAD'
-        },
-        {
-            img: 'album-03.jpg',
-            title: 'Michael Jackson'
-        }
-    ]
+    interface Musica {
+        img:String,
+        title:String
+    }
+    const [playlist,setPlaylist] = useState<Musica[]>([]);
+
+    useEffect(()=>{
+        getPlayListMadeForMe();
+    },[])
+
+
+    const getPlayListMadeForMe = async () => {
+        await axios.get('Api/playlist.json').then((response)=>{
+            setPlaylist(response.data.MadeForMe)
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
  return (
     <div className="grid grid-cols-6 gap-2 mt-4">
        {
