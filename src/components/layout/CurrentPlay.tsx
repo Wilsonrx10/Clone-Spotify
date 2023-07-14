@@ -1,7 +1,8 @@
 import {useContext, useEffect } from 'react';
-import { Laptop2, LayoutList, Mic2, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume } from "lucide-react";
+import { Laptop2, LayoutList, Mic2, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume1, Volume2, VolumeX } from "lucide-react";
 import UseCurrentPlay from '../../services/PlayMusic/CurrentPlay';
 import {CurrentPlayContext} from '../../contexts/CurrentPlayContext'
+import useVolume from '../../services/PlayMusic/Actions/Volume';
 
 const CurrentPlay = () => {
 
@@ -19,6 +20,8 @@ const CurrentPlay = () => {
     duration,
     audioPlaying,
     isPlaying } = UseCurrentPlay(CurrentMusic.audio);
+
+    const {handleVolumeChange,volume} = useVolume(audioPlaying);
 
    
   useEffect(() => {
@@ -85,12 +88,28 @@ const CurrentPlay = () => {
            <Mic2/>
            <LayoutList/>
            <Laptop2/>
-           <div className="flex items-center gap-2">
-              <Volume/>
-              <div className="h-1 rounded-full w-24 bg-zinc-600">
-                <div className="bg-zinc-200 h-1 w-10 rounded-full"></div>
-              </div>
-           </div>
+
+        <div className="flex items-center gap-2">
+          {
+            volume >= 0.50 ? (
+              <Volume2 size={20} />
+              ) : volume > 0 && volume <= 40 ? (
+              <Volume1 size={20} />
+            ): (
+              <VolumeX size={20} />
+            )
+          }
+              <input
+                  className="bg-zinc-200 h-1 w-30 rounded-full"
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                />
+            </div>
+
         </div>
   
         </div>
