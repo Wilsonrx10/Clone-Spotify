@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 
 const MadeForMe = () => {
     interface Musica {
+        id: number,
         img:String,
-        title:String
+        title:String,
+        playlist: object
     }
     const [playlist,setPlaylist] = useState<Musica[]>([]);
+
+    const navigate = useNavigate();
 
     useEffect(()=>{
         getPlayListMadeForMe();
@@ -20,14 +25,18 @@ const MadeForMe = () => {
             console.log(error);
         })
     }
+    const OpenAlbum = (item: Musica) => {
+        return navigate('/playlist/'+item.id)
+    }
  return (
     <div className="grid grid-cols-6 gap-2 mt-4">
        {
-        playlist.map((item, idx) => (
+        playlist.map((item) => (
             <a
                 href="#"
-                key={idx}
-                className="bg-white/5 p-2 rounded flex flex-col gap-2"
+                key={item.id}
+                className="bg-white/5 p-2 rounded flex flex-col gap-2 hover:bg-white/10"
+                onClick={() => OpenAlbum(item)}
                 >
                 <div>
                     {/* <button className="p-2 rounded-full bg-green-400 text-black ml-auto mr-8 nvisible group-hover:visible"/> */}
