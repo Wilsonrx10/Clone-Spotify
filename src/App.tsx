@@ -1,5 +1,5 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import { useState, useEffect } from "react";
+import {useEffect } from "react";
 import Routers from "./router/router";
 import { CurrentPlayProvider } from "./contexts/CurrentPlayContext";
 import Nav from "./components/layout/Nav";
@@ -8,7 +8,7 @@ import CurrentPlay from "./components/layout/CurrentPlay";
 import axios from "axios";
 
 function App() {
-  const [token, setToken] = useState<String>("");
+  
 
   useEffect(() => {
     const FetchData = async () => {
@@ -18,13 +18,13 @@ function App() {
   }, []);
 
   const getToken = async () => {
-    try {
+    try {      
       const response = await axios.post(
         "https://accounts.spotify.com/api/token",
         {
-          grant_type: "client_credentials",
-          client_id: "7cfab9ca06984ee3a3c2bf7683e63db0",
-          client_secret: "37ae3032d2284e518e7b32dd847b9fc7",
+          grant_type: import.meta.env.VITE_SPOTIFY_GRAND_TYPE,
+          client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
+          client_secret: import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
         },
         {
           headers: {
@@ -32,41 +32,22 @@ function App() {
           },
         }
       );
-      setToken(response.data.access_token);
+      const token = {
+        'value': response.data.access_token,
+        'expire': response.data.expires_in
+      }
+
+      localStorage.setItem('token_acess_spotify_api',JSON.stringify(token))
+
     } catch (error) {
       console.error(error);
     }
   };
 
-  // const getToken = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       'https://accounts.spotify.com/api/token',
-  //       'grant_type=client_credentials',
-  //       {
-  //         params: {
-  //           scope: 'streaming',
-  //         },
-  //         headers: {
-  //           'Content-Type': 'application/x-www-form-urlencoded',
-  //         },
-  //         auth: {
-  //           username: '7cfab9ca06984ee3a3c2bf7683e63db0',
-  //           password: '37ae3032d2284e518e7b32dd847b9fc7',
-  //         },
-  //       }
-  //     );
-
-  //     setToken(response.data.access_token);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   return (
     <>
       <Router>
-        <div className="bg-zinc-800 text-zinc-50 h-screen w-screen flex flex-col">
+        <div className="bg-zinc-800 text-zinc-50 h-screen w-full flex flex-col">
           <CurrentPlayProvider>
             <div className="flex flex-1">
               <aside className="w-72 bg-zinc-950 px-6">

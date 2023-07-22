@@ -47,17 +47,20 @@
         {
           "title": "Triller",
           "img": "album-01.jpg",
-          "audio": "teste.mp3"
+          "audio": "teste.mp3",
+          "duration": "3:20"
         },
         {
           "title": "Hell the World",
           "img": "album-01.jpg",
-          "audio": "teste1.mp3"
+          "audio": "teste1.mp3",
+          "duration": "3:20"
         },
         {
           "title": "Remember Me",
           "img": "album-01.jpg",
-          "audio": "teste1.mp3"
+          "audio": "teste1.mp3",
+          "duration": "3:20"
         }
       ]
     },
@@ -69,12 +72,14 @@
         {
           "title": "Alone",
           "img": "album-02.jpg",
-          "audio": "teste2.mp3"
+          "audio": "teste2.mp3",
+          "duration": "2:40"
         },
         {
           "title": "Fuck love",
           "img": "album-02.jpg",
-          "audio": "teste2.mp3"
+          "audio": "teste2.mp3",
+          "duration": "2:40"
         }
       ]
     }

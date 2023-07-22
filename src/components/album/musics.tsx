@@ -14,16 +14,6 @@ const Musics = ({ albumDetails }) => {
 
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
 
-  function Skellet() {
-    return (
-      <div className="glimmer-panel">
-        <div className="glimmer-line" />
-        <div className="glimmer-line" />
-        <div className="glimmer-line" />
-      </div>
-    );
-  }
-
   const handleTrackClick = (track: Track) => {
     setCurrentTrack(track);
   };
@@ -35,9 +25,10 @@ const Musics = ({ albumDetails }) => {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }
 
+
   return (
     <>
-      {albumDetails && albumDetails.tracks ? (
+      {albumDetails?.tracks && (
         <div className="mt-4">
           <hr />
           <ul className="mt-2 h-80 max-h-80 overflow-y-auto p-6">
@@ -76,9 +67,7 @@ const Musics = ({ albumDetails }) => {
             ))}
           </ul>
         </div>
-      ) : (
-        <Skellet />
-      )}
+      ) }
       {currentTrack && (
         <ReactPlayer
           controls
@@ -89,7 +78,7 @@ const Musics = ({ albumDetails }) => {
         />
         // <SpotifyPlayer
         //   token="BQAze8EUzBTjhd_FqEZXSWAb-wa_85842D46v6HUWdVdXyQr1LfbjYXf9h92p_BENZneUvt4PS4AKtz09TdvalejLiRLWnB4pJFQ4MzzRONCpEgKOcw"
-        //   uris={[currentTrack.preview_url]}
+        //   uris={[currentTrack.uri]}
         // />
       )}
     </>

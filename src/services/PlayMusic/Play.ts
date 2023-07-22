@@ -15,15 +15,7 @@ const UsePlay = (audioPlaying:HTMLAudioElement | null,props:String,
       setAudioPlaying(audio);
 
       audio.addEventListener("loadedmetadata", () => {
-        const duration = audio.duration;
-        setDuration(duration);
-
-        const minutes = Math.floor(duration / 60);
-        const seconds = Math.floor(duration % 60);
-        console.log(
-          "Duração: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds
-        );
-
+        setDuration(audio.duration);
         audio.play();
       });
     }
